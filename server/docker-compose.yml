@@ -1,0 +1,63 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: autosocial-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - autosocial-net
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: autosocial-server
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "5001:5001"
+    environment:
+      PORT: "5001"
+      NODE_ENV: "production"
+      CLIENT_URL: "${CLIENT_URL:-http://localhost:5173}"
+      MONGODB_URI: "mongodb://mongodb:27017/autosocial"
+      JWT_ACCESS_SECRET: "${JWT_ACCESS_SECRET:-autosocial_super_secret_access_jwt_key_32charsmin!}"
+      JWT_REFRESH_SECRET: "${JWT_REFRESH_SECRET:-autosocial_super_secret_refresh_jwt_key_32charsmin!}"
+      JWT_ACCESS_EXPIRES_IN: "15m"
+      JWT_REFRESH_EXPIRES_IN: "7d"
+      STORAGE_DIR: "/app/storage"
+      CHROME_EXECUTABLE_PATH: "/usr/bin/chromium"
+      ENABLE_XVFB: "true"
+      DEFAULT_ADMIN_EMAIL: "${DEFAULT_ADMIN_EMAIL:-admin@autosocial.io}"
+      DEFAULT_ADMIN_PASSWORD: "${DEFAULT_ADMIN_PASSWORD:-AdminSecurePassword123!}"
+    volumes:
+      # Profile persistence: preserves your logged-in Google & ChatGPT sessions across container restarts
+      - profiles_data:/app/storage/profiles
+      - images_data:/app/storage/images
+      - screenshots_data:/app/storage/screenshots
+    networks:
+      - autosocial-net
+
+networks:
+  autosocial-net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    name: autosocial_mongo_data
+  profiles_data:
+    name: autosocial_profiles_data
+  images_data:
+    name: autosocial_images_data
+  screenshots_data:
+    name: autosocial_screenshots_data
