@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light';
 
 interface ThemeState {
   theme: Theme;
@@ -8,36 +8,30 @@ interface ThemeState {
   toggleTheme: () => void;
 }
 
-const getInitialTheme = (): Theme => {
-  const saved = localStorage.getItem('autosocial_theme') as Theme;
-  if (saved === 'dark' || saved === 'light') return saved;
-  return 'dark'; // Default to sleek dark mode
-};
-
-export const useThemeStore = create<ThemeState>((set, get) => {
-  const initial = getInitialTheme();
+export const useThemeStore = create<ThemeState>((set) => {
+  // Always enforce clean white theme as requested
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem('autosocial_theme', 'light');
+  }
   if (typeof document !== 'undefined') {
-    if (initial === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.remove('dark');
   }
 
   return {
-    theme: initial,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem('autosocial_theme', theme);
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
+    theme: 'light',
+    setTheme: () => {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('autosocial_theme', 'light');
+      }
+      if (typeof document !== 'undefined') {
         document.documentElement.classList.remove('dark');
       }
-      set({ theme });
+      set({ theme: 'light' });
     },
     toggleTheme: () => {
-      const next = get().theme === 'dark' ? 'light' : 'dark';
-      get().setTheme(next);
+      // White theme only
+      set({ theme: 'light' });
     }
   };
 });
+

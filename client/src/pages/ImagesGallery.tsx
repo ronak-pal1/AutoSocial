@@ -47,36 +47,36 @@ export const ImagesGallery: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-6 pb-12 animate-in fade-in duration-300">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Images className="w-6 h-6 text-purple-400" />
-            Image Asset Library
+          <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Images className="w-5 h-5 text-purple-600" />
+            Media & Visual Asset Library
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Browse, inspect, and export all high-resolution imagery generated across your browser sessions.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleDownloadZip}
-            disabled={images.length === 0}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors disabled:opacity-50"
-          >
-            <Archive className="w-3.5 h-3.5 text-purple-400" />
-            <span>Download All (ZIP)</span>
-          </button>
-
+        <div className="flex items-center gap-2">
           <button
             onClick={() => refetch()}
             disabled={isLoading}
-            className="p-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors"
-            title="Refresh library"
+            className="p-2 rounded-xl bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 shadow-2xs transition-colors"
+            title="Refresh assets"
           >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+          </button>
+
+          <button
+            onClick={handleDownloadZip}
+            disabled={images.length === 0}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shadow-xs transition-colors disabled:opacity-50"
+          >
+            <Archive className="w-3.5 h-3.5" />
+            <span>Download All (ZIP)</span>
           </button>
         </div>
       </div>
@@ -84,13 +84,13 @@ export const ImagesGallery: React.FC = () => {
       {/* Search Bar */}
       <div className="flex items-center justify-between gap-4">
         <div className="relative max-w-md w-full">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search images by prompt keyword..."
-            className="w-full pl-10 pr-4 py-2 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 shadow-2xs transition-all"
           />
         </div>
         <div className="text-xs text-slate-500 font-mono">
@@ -100,11 +100,11 @@ export const ImagesGallery: React.FC = () => {
 
       {/* Grid of Images */}
       {images.length === 0 ? (
-        <div className="text-center py-20 bg-slate-900/40 rounded-2xl border border-slate-800/80 flex flex-col items-center gap-3">
-          <div className="p-3 rounded-2xl bg-purple-500/10 text-purple-400">
+        <div className="text-center py-20 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col items-center gap-3">
+          <div className="p-3 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100">
             <Images className="w-8 h-8" />
           </div>
-          <p className="text-sm font-semibold text-slate-300">No images found</p>
+          <p className="text-sm font-bold text-slate-800">No images found</p>
           <p className="text-xs text-slate-500 max-w-sm">
             Generate your first high-resolution visuals in the AI Content Studio using Imagen 3 or DALL-E.
           </p>
@@ -114,11 +114,11 @@ export const ImagesGallery: React.FC = () => {
           {images.map((img) => (
             <div
               key={img._id}
-              className="group rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-xl hover:border-slate-700 transition-all flex flex-col justify-between"
+              className="group rounded-2xl bg-white border border-slate-200/80 overflow-hidden shadow-xs hover:border-slate-300 hover:shadow-sm transition-all flex flex-col justify-between"
             >
               {/* Image Thumbnail */}
               <div
-                className="relative aspect-video bg-black/60 overflow-hidden cursor-pointer"
+                className="relative aspect-video bg-slate-100 overflow-hidden cursor-pointer"
                 onClick={() => setSelectedImage(img)}
               >
                 <img
@@ -127,11 +127,11 @@ export const ImagesGallery: React.FC = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-3">
-                  <span className="text-[11px] font-mono text-slate-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-3">
+                  <span className="text-[11px] font-mono text-white">
                     {img.width || 1200}x{img.height || 630}
                   </span>
-                  <div className="p-1.5 rounded-lg bg-black/60 text-white backdrop-blur-md">
+                  <div className="p-1.5 rounded-lg bg-white/80 text-slate-900 backdrop-blur-xs">
                     <Maximize2 className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -139,24 +139,24 @@ export const ImagesGallery: React.FC = () => {
 
               {/* Image Info & Actions */}
               <div className="p-4 flex-1 flex flex-col justify-between gap-3">
-                <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed" title={img.prompt}>
+                <p className="text-xs text-slate-800 font-medium line-clamp-2 leading-relaxed" title={img.prompt}>
                   {img.prompt}
                 </p>
 
-                <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-[11px] text-slate-500">
+                <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px] text-slate-400">
                   <span>{new Date(img.createdAt).toLocaleDateString()}</span>
                   <div className="flex items-center gap-1.5">
                     <a
                       href={img.url}
                       download={img.filename}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
                       title="Download image"
                     >
                       <Download className="w-3.5 h-3.5" />
                     </a>
                     <button
                       onClick={() => deleteMutation.mutate(img._id)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 transition-colors"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                       title="Delete image"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -172,35 +172,35 @@ export const ImagesGallery: React.FC = () => {
       {/* Lightbox Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in"
           onClick={() => setSelectedImage(null)}
         >
           <div
-            className="relative max-w-5xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl"
+            className="relative max-w-5xl w-full bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-300 truncate max-w-xl">
+            <div className="p-4 bg-white border-b border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-800 truncate max-w-xl">
                 {selectedImage.prompt}
               </span>
               <button
                 onClick={() => setSelectedImage(null)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-4 flex items-center justify-center bg-black/80 max-h-[70vh]">
+            <div className="p-4 flex items-center justify-center bg-slate-50 max-h-[70vh]">
               <img
                 src={selectedImage.url}
                 alt={selectedImage.prompt}
-                className="max-h-[65vh] w-auto object-contain rounded-xl"
+                className="max-h-[65vh] w-auto object-contain rounded-xl shadow-xs"
               />
             </div>
 
-            <div className="p-4 bg-slate-950 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="flex items-center gap-4 text-xs text-slate-400 font-mono">
+            <div className="p-4 bg-white border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-4 text-xs text-slate-500 font-mono">
                 <span>Format: {selectedImage.mime}</span>
                 <span>Size: {Math.round((selectedImage.sizeBytes || 0) / 1024)} KB</span>
                 <span>Created: {new Date(selectedImage.createdAt).toLocaleString()}</span>
@@ -211,15 +211,15 @@ export const ImagesGallery: React.FC = () => {
                   onClick={() => {
                     navigate('/studio');
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 text-xs font-medium hover:bg-indigo-600/30 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 text-xs font-semibold transition-colors"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
+                  <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Use in Studio Post</span>
                 </button>
                 <a
                   href={selectedImage.url}
                   download={selectedImage.filename}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium shadow-md transition-colors"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shadow-xs transition-colors"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download Full Resolution</span>

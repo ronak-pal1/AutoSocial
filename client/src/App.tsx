@@ -14,6 +14,12 @@ import { ResearchNotes } from './pages/ResearchNotes';
 import { AnalyticsView } from './pages/AnalyticsView';
 import { Connections } from './pages/Connections';
 import { SettingsView } from './pages/SettingsView';
+import { AudienceInsights } from './pages/AudienceInsights';
+import { EngagementTracker } from './pages/EngagementTracker';
+import { CampaignReports } from './pages/CampaignReports';
+import { ExportCenter } from './pages/ExportCenter';
+import { ChannelHub } from './pages/ChannelHub';
+import { BusinessSuiteView } from './pages/BusinessSuiteView';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +50,18 @@ const App: React.FC = () => {
               <Route path="/images" element={<ImagesGallery />} />
               <Route path="/research" element={<ResearchNotes />} />
               <Route path="/analytics" element={<AnalyticsView />} />
+              <Route path="/performance" element={<AnalyticsView />} />
+              <Route path="/audience" element={<AudienceInsights />} />
+              <Route path="/engagement" element={<EngagementTracker />} />
+              <Route path="/reports" element={<CampaignReports />} />
+              <Route path="/export" element={<ExportCenter />} />
+              <Route path="/facebook" element={<ChannelHub />} />
+              <Route path="/instagram" element={<ChannelHub />} />
+              <Route path="/tiktok" element={<ChannelHub />} />
+              <Route path="/campaigns" element={<BusinessSuiteView />} />
+              <Route path="/ads" element={<BusinessSuiteView />} />
+              <Route path="/team" element={<BusinessSuiteView />} />
+              <Route path="/billing" element={<BusinessSuiteView />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/settings" element={<SettingsView />} />
             </Route>

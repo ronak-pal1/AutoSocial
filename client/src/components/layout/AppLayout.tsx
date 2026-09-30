@@ -9,7 +9,7 @@ export const AppLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex transition-colors">
       {/* Sidebar */}
       <Sidebar
         collapsed={collapsed}
@@ -25,7 +25,7 @@ export const AppLayout: React.FC = () => {
         }`}
       >
         <TopBar onMobileOpen={() => setMobileOpen(true)} />
-        <main className="flex-1 p-4 lg:p-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto">
           <Outlet />
         </main>
       </div>

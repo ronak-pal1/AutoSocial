@@ -168,8 +168,8 @@ export const Studio: React.FC = () => {
   const renderJobOutput = (job?: Job) => {
     if (!job) {
       return (
-        <div className="text-center py-24 text-slate-500 text-sm flex flex-col items-center gap-2">
-          <Wand2 className="w-8 h-8 text-slate-600 animate-pulse" />
+        <div className="text-center py-20 text-slate-400 text-xs flex flex-col items-center gap-2">
+          <Wand2 className="w-8 h-8 text-slate-300 animate-pulse" />
           <span>Select an existing job from the history or submit a prompt above.</span>
         </div>
       );
@@ -177,19 +177,19 @@ export const Studio: React.FC = () => {
 
     if (job.status === 'queued' || job.status === 'running') {
       return (
-        <div className="p-8 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col items-center justify-center text-center space-y-4">
+        <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col items-center justify-center text-center space-y-4">
           <div className="relative">
-            <div className="w-16 h-16 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin" />
-            <Sparkles className="w-6 h-6 text-indigo-400 absolute inset-0 m-auto" />
+            <div className="w-16 h-16 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin" />
+            <Sparkles className="w-6 h-6 text-indigo-600 absolute inset-0 m-auto" />
           </div>
           <div>
-            <h4 className="text-base font-semibold text-white">Browser Automation in Progress</h4>
-            <p className="text-xs text-slate-400 mt-1 max-w-md">
+            <h4 className="text-base font-bold text-slate-900">Browser Automation in Progress</h4>
+            <p className="text-xs text-slate-500 mt-1 max-w-md">
               Engaging {job.provider.toUpperCase()} session tab. Streaming prompt, waiting for DOM stabilization, and extracting high-fidelity output.
             </p>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs">
-            <Clock className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-medium shadow-2xs">
+            <Clock className="w-3.5 h-3.5 text-slate-500" />
             <span>State: {job.status.toUpperCase()}</span>
           </div>
         </div>
@@ -198,21 +198,21 @@ export const Studio: React.FC = () => {
 
     if (job.status === 'failed') {
       return (
-        <div className="p-6 rounded-2xl bg-rose-950/30 border border-rose-800/40 text-rose-200 space-y-4">
-          <div className="flex items-center gap-2 text-rose-400 font-semibold">
-            <AlertCircle className="w-5 h-5" />
+        <div className="p-6 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 space-y-4">
+          <div className="flex items-center gap-2 text-rose-700 font-bold">
+            <AlertCircle className="w-5 h-5 text-rose-600" />
             <span>Job Execution Failed</span>
           </div>
-          <p className="text-xs text-rose-300 font-mono bg-rose-950/60 p-3 rounded-xl border border-rose-900/50">
+          <p className="text-xs text-rose-700 font-mono bg-white p-3 rounded-xl border border-rose-200">
             {job.error || 'Unknown failure during browser execution'}
           </p>
           {job.errorScreenshot && (
             <div className="space-y-1.5">
-              <span className="text-xs font-semibold text-rose-300">Failure Snapshot Captured:</span>
+              <span className="text-xs font-semibold text-rose-800">Failure Snapshot Captured:</span>
               <img
                 src={job.errorScreenshot}
                 alt="Failure screenshot"
-                className="max-h-60 rounded-xl border border-rose-800/50 object-cover"
+                className="max-h-60 rounded-xl border border-rose-200 object-cover"
               />
             </div>
           )}
@@ -225,21 +225,21 @@ export const Studio: React.FC = () => {
       return (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
               Rendered Visual Asset
             </span>
             <div className="flex items-center gap-2">
               <a
                 href={job.result.imageUrl}
                 download="autosocial-render.jpg"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 shadow-2xs transition-colors"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download</span>
               </a>
               <button
                 onClick={() => setPreviewImage(job.result?.imageUrl as string)}
-                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                className="p-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 shadow-2xs"
                 title="Fullscreen Preview"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
@@ -248,7 +248,7 @@ export const Studio: React.FC = () => {
           </div>
 
           <div
-            className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 flex items-center justify-center cursor-pointer group relative"
+            className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center cursor-pointer group relative shadow-2xs"
             onClick={() => setPreviewImage(job.result?.imageUrl as string)}
           >
             <img
@@ -256,8 +256,8 @@ export const Studio: React.FC = () => {
               alt="Generated Visual"
               className="w-full max-h-[460px] object-contain group-hover:scale-[1.01] transition-transform"
             />
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-              <span className="px-3 py-1.5 rounded-xl bg-slate-900/90 text-white text-xs font-semibold backdrop-blur-md">
+            <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-2xs">
+              <span className="px-3 py-1.5 rounded-xl bg-white text-slate-900 text-xs font-bold shadow-md">
                 Click to Enlarge
               </span>
             </div>
@@ -280,7 +280,7 @@ export const Studio: React.FC = () => {
       return (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-sky-400 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-sky-600 flex items-center gap-1.5">
               <TwitterIcon className="w-3.5 h-3.5" />
               Generated Twitter Thread ({thread.length} Tweets)
             </span>
@@ -289,9 +289,9 @@ export const Studio: React.FC = () => {
                 const fullText = thread.map((t) => t.text).join('\n\n---\n\n');
                 copyText(fullText, 'full-thread');
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 shadow-2xs transition-colors"
             >
-              {copiedId === 'full-thread' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedId === 'full-thread' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               <span>Copy All Tweets</span>
             </button>
           </div>
@@ -300,28 +300,28 @@ export const Studio: React.FC = () => {
             {thread.map((t) => (
               <div
                 key={t.order}
-                className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 relative group"
+                className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 relative group"
               >
                 <div className="flex items-center justify-between text-xs text-slate-500">
-                  <span className="font-semibold text-slate-400">Tweet {t.order}</span>
+                  <span className="font-bold text-slate-700">Tweet {t.order}</span>
                   <div className="flex items-center gap-2">
-                    <span className={`${t.text.length > 280 ? 'text-rose-400' : 'text-slate-400'}`}>
+                    <span className={`${t.text.length > 280 ? 'text-rose-600 font-semibold' : 'text-slate-400'}`}>
                       {t.text.length}/280
                     </span>
                     <button
                       onClick={() => copyText(t.text, `tweet-${t.order}`)}
-                      className="text-slate-400 hover:text-white p-1 rounded transition-colors"
+                      className="text-slate-400 hover:text-slate-700 p-1 rounded transition-colors"
                       title="Copy tweet"
                     >
                       {copiedId === `tweet-${t.order}` ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
                       ) : (
                         <Copy className="w-3.5 h-3.5" />
                       )}
                     </button>
                   </div>
                 </div>
-                <p className="text-xs text-slate-200 whitespace-pre-wrap leading-relaxed">{t.text}</p>
+                <p className="text-xs text-slate-800 whitespace-pre-wrap leading-relaxed">{t.text}</p>
               </div>
             ))}
           </div>
@@ -336,7 +336,7 @@ export const Studio: React.FC = () => {
       return (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-blue-400 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-blue-600 flex items-center gap-1.5">
               <LinkedInIcon className="w-3.5 h-3.5" />
               Generated LinkedIn Post
             </span>
@@ -345,19 +345,19 @@ export const Studio: React.FC = () => {
                 const fullText = `${linkedInBody}\n\n${hashtags.join(' ')}`;
                 copyText(fullText, 'linkedin-full');
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 shadow-2xs transition-colors"
             >
-              {copiedId === 'linkedin-full' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedId === 'linkedin-full' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               <span>Copy Post Text</span>
             </button>
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-4">
-            <p className="text-xs text-slate-200 whitespace-pre-wrap leading-relaxed">{linkedInBody}</p>
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+            <p className="text-xs text-slate-800 whitespace-pre-wrap leading-relaxed">{linkedInBody}</p>
             {hashtags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800">
+              <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200">
                 {hashtags.map((h, i) => (
-                  <span key={i} className="text-xs text-indigo-400 hover:underline">
+                  <span key={i} className="text-xs text-blue-600 font-medium hover:underline">
                     {h.startsWith('#') ? h : `#${h}`}
                   </span>
                 ))}
@@ -372,58 +372,58 @@ export const Studio: React.FC = () => {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Generated Text</span>
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Generated Text</span>
           <button
             onClick={() => copyText(rawText, 'raw-text')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 shadow-2xs transition-colors"
           >
-            {copiedId === 'raw-text' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copiedId === 'raw-text' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
             <span>Copy Text</span>
           </button>
         </div>
-        <div className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800">
-          <p className="text-xs text-slate-200 whitespace-pre-wrap leading-relaxed">{rawText}</p>
+        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <p className="text-xs text-slate-800 whitespace-pre-wrap leading-relaxed">{rawText}</p>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-6 pb-12 animate-in fade-in duration-300">
       {/* Studio Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Wand2 className="w-6 h-6 text-indigo-400" />
+          <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Wand2 className="w-5 h-5 text-indigo-600" />
             AI Content Studio
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Prompt personal browser sessions to craft viral social posts and high-resolution visuals.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1 p-1 bg-slate-900 border border-slate-800 rounded-xl">
+        <div className="flex items-center gap-1 p-1 bg-white border border-slate-200/80 rounded-xl shadow-2xs">
           <button
             onClick={() => setActiveTab('post')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              activeTab === 'post' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all select-none ${
+              activeTab === 'post' ? 'bg-zinc-900 text-white shadow-2xs' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             Social Post
           </button>
           <button
             onClick={() => setActiveTab('text')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              activeTab === 'text' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all select-none ${
+              activeTab === 'text' ? 'bg-zinc-900 text-white shadow-2xs' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             Direct Text
           </button>
           <button
             onClick={() => setActiveTab('image')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              activeTab === 'image' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all select-none ${
+              activeTab === 'image' ? 'bg-zinc-900 text-white shadow-2xs' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             Image Asset
@@ -431,40 +431,40 @@ export const Studio: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Prompt Composer & Live Output */}
         <div className="lg:col-span-2 space-y-6">
           {/* Form Composer */}
-          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-5">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-5">
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Target Provider & Engine Selector */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                   Target Automation Engine:
                 </span>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setSelectedProvider('gemini')}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                       selectedProvider === 'gemini'
-                        ? 'bg-indigo-600/20 text-indigo-300 border-indigo-500/50 shadow-sm'
-                        : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-slate-200'
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-2xs'
+                        : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
-                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     Google Gemini
                   </button>
                   <button
                     type="button"
                     onClick={() => setSelectedProvider('chatgpt')}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                       selectedProvider === 'chatgpt'
-                        ? 'bg-indigo-600/20 text-indigo-300 border-indigo-500/50 shadow-sm'
-                        : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-slate-200'
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-2xs'
+                        : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
-                    <span className="w-2 h-2 rounded-full bg-indigo-400" />
+                    <span className="w-2 h-2 rounded-full bg-indigo-500" />
                     ChatGPT Tab
                   </button>
                 </div>
@@ -473,30 +473,30 @@ export const Studio: React.FC = () => {
               {/* Social Platform Selection if in 'post' tab */}
               {activeTab === 'post' && (
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-slate-400">Platform:</span>
+                  <span className="text-xs font-semibold text-slate-500">Platform:</span>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setPlatform('twitter')}
-                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                         platform === 'twitter'
-                          ? 'bg-sky-500/20 text-sky-300 border-sky-500/50'
-                          : 'bg-slate-950/60 text-slate-400 border-slate-800'
+                          ? 'bg-sky-50 text-sky-700 border-sky-300 shadow-2xs'
+                          : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
-                      <TwitterIcon className="w-3.5 h-3.5" />
+                      <TwitterIcon className="w-3.5 h-3.5 text-sky-500" />
                       <span>Twitter / X Thread</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setPlatform('linkedin')}
-                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                         platform === 'linkedin'
-                          ? 'bg-blue-500/20 text-blue-300 border-blue-500/50'
-                          : 'bg-slate-950/60 text-slate-400 border-slate-800'
+                          ? 'bg-blue-50 text-blue-700 border-blue-300 shadow-2xs'
+                          : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
-                      <LinkedInIcon className="w-3.5 h-3.5" />
+                      <LinkedInIcon className="w-3.5 h-3.5 text-blue-600" />
                       <span>LinkedIn Article</span>
                     </button>
                   </div>
@@ -505,7 +505,7 @@ export const Studio: React.FC = () => {
 
               {/* Topic / Prompt Input */}
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   {activeTab === 'image'
                     ? 'Image Prompt & Visual Concept'
                     : activeTab === 'post'
@@ -523,7 +523,7 @@ export const Studio: React.FC = () => {
                       ? 'Why persistent browser sessions beat paying for token-billed LLM APIs...'
                       : 'Ask anything to the browser session...'
                   }
-                  className="w-full p-3.5 bg-slate-950/70 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none"
+                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white transition-all resize-none leading-relaxed"
                 />
               </div>
 
@@ -531,7 +531,7 @@ export const Studio: React.FC = () => {
               {activeTab === 'post' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                       Context / Source Notes (Optional)
                     </label>
                     <input
@@ -539,13 +539,13 @@ export const Studio: React.FC = () => {
                       value={context}
                       onChange={(e) => setContext(e.target.value)}
                       placeholder="e.g. Based on recent Grok AI research or release notes"
-                      className="w-full p-2.5 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white transition-all"
                     />
                   </div>
 
                   {platform === 'twitter' ? (
                     <div>
-                      <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                         Tweet Count ({tweetCount} tweets)
                       </label>
                       <input
@@ -554,12 +554,12 @@ export const Studio: React.FC = () => {
                         max={10}
                         value={tweetCount}
                         onChange={(e) => setTweetCount(Number(e.target.value))}
-                        className="w-full accent-indigo-500 mt-2"
+                        className="w-full accent-slate-900 mt-2"
                       />
                     </div>
                   ) : (
                     <div>
-                      <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                         Tone Override
                       </label>
                       <input
@@ -567,15 +567,15 @@ export const Studio: React.FC = () => {
                         value={tone}
                         onChange={(e) => setTone(e.target.value)}
                         placeholder="e.g. Provocative, Technical, Narrative"
-                        className="w-full p-2.5 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white transition-all"
                       />
                     </div>
                   )}
 
-                  <div className="sm:col-span-2 flex items-center justify-between p-3 rounded-xl bg-slate-950/50 border border-slate-800/80">
+                  <div className="sm:col-span-2 flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
                     <div className="flex items-center gap-2">
-                      <ImageIcon className="w-4 h-4 text-purple-400" />
-                      <span className="text-xs text-slate-300 font-medium">
+                      <ImageIcon className="w-4 h-4 text-purple-600" />
+                      <span className="text-xs text-slate-700 font-semibold">
                         Generate Accompanying High-Res Visual
                       </span>
                     </div>
@@ -586,7 +586,7 @@ export const Studio: React.FC = () => {
                         onChange={(e) => setWithImage(e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                      <div className="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-zinc-900"></div>
                     </label>
                   </div>
                 </div>
@@ -595,16 +595,16 @@ export const Studio: React.FC = () => {
               {/* Aspect Ratio for Images */}
               {activeTab === 'image' && (
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-slate-400">Aspect Ratio:</span>
+                  <span className="text-xs font-semibold text-slate-500">Aspect Ratio:</span>
                   {(['1:1', '16:9', '9:16'] as const).map((r) => (
                     <button
                       key={r}
                       type="button"
                       onClick={() => setAspectRatio(r)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                         aspectRatio === r
-                          ? 'bg-purple-600/20 text-purple-300 border-purple-500/50'
-                          : 'bg-slate-950/60 text-slate-400 border-slate-800'
+                          ? 'bg-zinc-900 text-white border-zinc-900 shadow-2xs'
+                          : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
                       {r}
@@ -618,7 +618,7 @@ export const Studio: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/25 flex items-center gap-2 transition-all disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-xs shadow-xs flex items-center gap-2 transition-all disabled:opacity-50"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>{isSubmitting ? 'Automating Session...' : 'Generate with AutoSocial'}</span>
@@ -628,7 +628,7 @@ export const Studio: React.FC = () => {
           </div>
 
           {/* Active Job Output Container */}
-          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
             {renderJobOutput(activeJob)}
           </div>
         </div>
@@ -636,13 +636,13 @@ export const Studio: React.FC = () => {
         {/* Right Col: Studio Jobs History */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <History className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+              <History className="w-4 h-4 text-slate-600" />
               Generation Queue & History
             </h3>
             <button
               onClick={() => refetchJobs()}
-              className="text-[11px] text-slate-400 hover:text-white transition-colors"
+              className="text-[11px] font-semibold text-slate-500 hover:text-slate-900 transition-colors"
             >
               Refresh
             </button>
@@ -650,7 +650,7 @@ export const Studio: React.FC = () => {
 
           <div className="space-y-2 max-h-[720px] overflow-y-auto pr-1">
             {recentJobs.length === 0 ? (
-              <div className="p-8 text-center bg-slate-900/50 border border-slate-800 rounded-xl text-slate-500 text-xs">
+              <div className="p-8 text-center bg-white border border-slate-200/80 rounded-2xl text-slate-400 text-xs shadow-xs">
                 No past jobs found. Run your first generation!
               </div>
             ) : (
@@ -662,37 +662,37 @@ export const Studio: React.FC = () => {
                     onClick={() => setActiveJobId(job._id)}
                     className={`w-full text-left p-3.5 rounded-xl border transition-all flex flex-col gap-2 ${
                       isSelected
-                        ? 'bg-indigo-950/30 border-indigo-500/40 shadow-sm'
-                        : 'bg-slate-900/60 border-slate-800 hover:bg-slate-850/80 hover:border-slate-700'
+                        ? 'bg-sky-50/70 border-sky-300 shadow-xs'
+                        : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-2xs'
                     }`}
                   >
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                         {job.type === 'image' ? (
-                          <ImageIcon className="w-3.5 h-3.5 text-purple-400" />
+                          <ImageIcon className="w-3.5 h-3.5 text-purple-600" />
                         ) : (
-                          <FileText className="w-3.5 h-3.5 text-indigo-400" />
+                          <FileText className="w-3.5 h-3.5 text-indigo-600" />
                         )}
                         {job.type}
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded-full font-mono text-[10px] ${
                           job.status === 'succeeded'
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                             : job.status === 'running'
-                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200 animate-pulse'
                             : job.status === 'failed'
-                            ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                            : 'bg-slate-800 text-slate-400'
+                            ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                            : 'bg-slate-100 text-slate-600 border border-slate-200'
                         }`}
                       >
                         {job.status}
                       </span>
                     </div>
 
-                    <p className="text-xs text-slate-300 font-medium line-clamp-2">{job.prompt}</p>
+                    <p className="text-xs text-slate-800 font-medium line-clamp-2">{job.prompt}</p>
 
-                    <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-850">
+                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-100">
                       <span>{new Date(job.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                       {job.durationMs && <span>{(job.durationMs / 1000).toFixed(1)}s</span>}
                       <span className="capitalize">{job.provider}</span>
@@ -708,20 +708,20 @@ export const Studio: React.FC = () => {
       {/* Lightbox Preview Modal */}
       {previewImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in"
           onClick={() => setPreviewImage(null)}
         >
           <div className="relative max-w-5xl max-h-[90vh]">
             <button
               onClick={() => setPreviewImage(null)}
-              className="absolute -top-10 right-0 p-2 text-slate-400 hover:text-white"
+              className="absolute -top-10 right-0 p-2 text-white hover:text-slate-300"
             >
               <X className="w-6 h-6" />
             </button>
             <img
               src={previewImage}
               alt="High resolution preview"
-              className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border border-slate-800"
+              className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border border-white/20 bg-white"
             />
           </div>
         </div>
